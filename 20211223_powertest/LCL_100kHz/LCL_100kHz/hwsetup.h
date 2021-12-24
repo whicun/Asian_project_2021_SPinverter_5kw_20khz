@@ -115,8 +115,8 @@
 #define over_VCn 3742   //350V Vcn_A2D Ratio 10.69 //24-Sep-2020 15:27:19
 
 //when rated_power changed, should change the vaule of current protection 
-#define over_Iin 299 //Initial 15A Ii_A2D Ratio 18.7 (45.7A Enter hw_detection ) //24-Sep-2020 14:08:19
-#define over_Ign 296 //Initial 15A Ig_A2D Ratio 18.5 (45.7A Enter hw_detection ) //25-Sep-2020 14:08:19
+#define over_Iin 290 //Initial 8A Ii_A2D Ratio 36.22 (45.7A Enter hw_detection ) //24-Sep-2020 14:08:19
+#define over_Ign 290 //Initial 8A Ig_A2D Ratio 36.26 (45.7A Enter hw_detection ) //25-Sep-2020 14:08:19
 
 #define over_IDC 613 //Initial 9A IDC_A2D Ratio 61.3 (60.4A Enter hw_detection 3841) //25-Sep-2020 14:08:19
 
@@ -139,8 +139,8 @@
 
 //define grid_detection
 #define ZVCR_Counter 10
-#define ZVCR_60_min 404 //404
-#define ZVCR_60_max 424 //424
+#define ZVCR_60_min 160//404
+#define ZVCR_60_max 165 //424
 #define Grid_fre_for_sure 35   //35
 #define wait_cycle 250              //be less than (828/2)-(828/6)=278
 #define fre_60Hz 1                     // don't set fre_60Hz = 0
@@ -149,27 +149,27 @@
 
 //define initial counter 
 #define ini_R_counter  -1 
-#define ini_S_counter 551
-#define ini_T_counter 275
+#define ini_S_counter 219
+#define ini_T_counter 109
 
 #define R_counter1 0
-#define S_counter1 552
-#define T_counter1 276
+#define S_counter1 220
+#define T_counter1 110
 
 
 //define VDC_ready
-#define  VDC_for_sure 2484
+#define  VDC_for_sure 1000
 
 //define Ii D2A Ig_D2A //25-Sep-2020 15:27:19
 //Ii_A2D = 36.22  Initial (100/1000)*(1.21/1)*(499/2000)*(4095/3.3)=37.4624  //25-Sep-2020 15:27:19
 #define Ii_D2A 0.02761  //Initial(1/Ii_A2D) //22-Nov-2019 15:27:19
 //Ig_A2D = 36.26  Initial (100/1000)*(1.21/1)*(499/2000)*(4095/3.3)=37.4624  //25-Sep-2020 15:27:19
 #define Ig_D2A  0.02758 
-#define Li_factor  1.4780         //Initial(700uH)/760*49680/Ii_A2D*604  //25-Sep-2020 15:27:19
-#define CompConst_Ii 0.3378    //Initial(160uH)/760*49680/Ii_A2D*604  //25-Sep-2020 15:27:19
-#define CompConst_Ig 0.3415    //Initial(160uH)/760*49680/Ig_A2D*604  //25-Sep-2020 15:27:19
+#define Li_factor  1.4780         //Initial(1350uH)/380/2*19800/Ii_A2D*3030  //25-Sep-2020 15:27:19
+#define CompConst_Ii 0.3378    //Initial(470uH)/380/2*19800/Ii_A2D*3030 //25-Sep-2020 15:27:19
+#define CompConst_Ig 0.3415    //Initial(470uH)/380/2*19800/Ig_A2D*3030  //25-Sep-2020 15:27:19
 //Vcn_A2D Ratio 10.69 //24-Sep-2020 15:27:19
-#define  VAC_Const  0.07434      // Initial(1/760)*(1/Vcn_A2D)*604     //24-Sep-2020 15:27:19
+#define  VAC_Const  0.07434      // Initial(1/380)/2*(1/Vcn_A2D)*3030     //24-Sep-2020 15:27:19
 
 // define duty min & max 
 #define duty_max 583		  
@@ -192,3 +192,4 @@
 
 
 #endif
+
