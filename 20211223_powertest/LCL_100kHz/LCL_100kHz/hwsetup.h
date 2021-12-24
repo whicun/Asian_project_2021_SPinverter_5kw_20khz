@@ -106,12 +106,17 @@
 #define FVDC_min 3473    //749V FVDC_A2D Ratio 4.63685 //24-Sep-2020 15:43:19
 #define FVDC_max 3563    //768V FVDC_A2D Ratio 4.63932 //24-Sep-2020 15:43:19
 
+#define HVDC_Ini 3580    //377V HVDC_A2D Ratio 9.4961 //24-Dec-2021 15:43:19
+#define HVDC_min 3513    //370V HVDC_A2D Ratio 9.4961 //24-Dec-2021 15:43:19
+#define HVDC_max 3703    //390V HVDC_A2D Ratio 9.4961 //24-Dec-2021 15:43:19
+
+
 #define over_VPn 3742   //350V Vpn_A2D Ratio 10.69 //24-Sep-2020 15:27:19
 #define over_VCn 3742   //350V Vcn_A2D Ratio 10.69 //24-Sep-2020 15:27:19
 
 //when rated_power changed, should change the vaule of current protection 
-#define over_Iin 299 //Initial 15A Ii_A2D Ratio 18.7 (85.1A Enter hw_detection 1712) //24-Sep-2020 14:08:19
-#define over_Ign 296 //Initial 15A Ig_A2D Ratio 18.5 (85.1A Enter hw_detection 1712) //25-Sep-2020 14:08:19
+#define over_Iin 299 //Initial 15A Ii_A2D Ratio 18.7 (45.7A Enter hw_detection ) //24-Sep-2020 14:08:19
+#define over_Ign 296 //Initial 15A Ig_A2D Ratio 18.5 (45.7A Enter hw_detection ) //25-Sep-2020 14:08:19
 
 #define over_IDC 613 //Initial 9A IDC_A2D Ratio 61.3 (60.4A Enter hw_detection 3841) //25-Sep-2020 14:08:19
 
@@ -156,10 +161,10 @@
 #define  VDC_for_sure 2484
 
 //define Ii D2A Ig_D2A //25-Sep-2020 15:27:19
-//Ii_A2D = 18.7  Initial (100/2000)*(1.3/1)*(499/2000)*(4095/3.3)=20.1244  //25-Sep-2020 15:27:19
-#define Ii_D2A 0.05348  //Initial(1/Ii_A2D) //22-Nov-2019 15:27:19
-//Ig_A2D = 18.5  Initial (100/2000)*(1.3/1)*(499/2000)*(4095/3.3)=20.1244  //25-Sep-2020 15:27:19
-#define Ig_D2A  0.05405 
+//Ii_A2D = 36.22  Initial (100/1000)*(1.21/1)*(499/2000)*(4095/3.3)=37.4624  //25-Sep-2020 15:27:19
+#define Ii_D2A 0.02761  //Initial(1/Ii_A2D) //22-Nov-2019 15:27:19
+//Ig_A2D = 36.26  Initial (100/1000)*(1.21/1)*(499/2000)*(4095/3.3)=37.4624  //25-Sep-2020 15:27:19
+#define Ig_D2A  0.02758 
 #define Li_factor  1.4780         //Initial(700uH)/760*49680/Ii_A2D*604  //25-Sep-2020 15:27:19
 #define CompConst_Ii 0.3378    //Initial(160uH)/760*49680/Ii_A2D*604  //25-Sep-2020 15:27:19
 #define CompConst_Ig 0.3415    //Initial(160uH)/760*49680/Ig_A2D*604  //25-Sep-2020 15:27:19
@@ -173,9 +178,7 @@
 
 
 //define sin_table ratio
-#define V2A_ratio  0.012048    //25-Sep-2020 15:27:19
-#define V2sin_ration 0.00030265
-#define V_PU 0.00030266    // 1/3304
+#define V2A_ratio  0.0350022    //current rating 500w 25-Sep-2020 15:27:19
 
 //define Grid_mode_power 
 #define start_counter 110 //start feeding power to grid 
