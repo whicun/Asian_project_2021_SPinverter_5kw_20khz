@@ -1,0 +1,7 @@
+---- 31 Matches (6 in 0 files) ----
+LCL_100kHz.c (lcl_100khz):/*  DATE        :Tue, Oct 31, 2006                                     */
+LCL_100kHz.c (lcl_100khz):void S12AD1_Interrupt(void){         // 20190131 edit
+LCL_100kHz.c (lcl_100khz):void over_detect(void) {                                 //20190131 edit 
+LCL_100kHz.c (lcl_100khz):void hw_detection(void) {                                  //20190131 edit 
+LCL_100kHz.c (lcl_100khz):void protection(void){                    //20190131 edit
+LCL_100kHz.c (lcl_100khz):LED.FAULT=31;
