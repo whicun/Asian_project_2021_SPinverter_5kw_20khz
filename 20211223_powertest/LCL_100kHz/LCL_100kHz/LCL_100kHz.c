@@ -106,7 +106,7 @@ union {
  void main(void) {
     power_on = 1;                                       //show the cpu on and run program
     VDC_inspect = 0;
-    dc_vol_detection();                         // detect 750 < VDC < 770 //01-Nov-2019 22:16:19
+    dc_vol_detection();                         // detect 370 < VDC < 390 //01-Nov-2019 22:16:19
     hoVDC = 1;                                           // VDC inspection  OK
     Relay = 1;                                          // Relay turn on
     for(fordelay1=0; fordelay1 <= 80000; fordelay1++) {
@@ -137,16 +137,17 @@ void S12AD_Interrupt(void) {
 
     if( VDC_inspect == 0) {
         IiR_fb = (S12AD.ADDR0 - 2027);      //0225edit S12AD first S12AD1 later  //24-Sep-2020 22:56:19 
-        IiS_fb = (S12AD.ADDR1 - 2014);      //bias = 1.6327 V                    //24-Sep-2020 22:56:19
-        IiT_fb = (S12AD.ADDR2 - 2021);      //22-Nov-2019 16:38:19               //24-Sep-2020 22:56:19
+        //IiS_fb = (S12AD.ADDR1 - 2014);      //bias = 1.6327 V                    //24-Sep-2020 22:56:19
+        //IiT_fb = (S12AD.ADDR2 - 2021);      //22-Nov-2019 16:38:19               //24-Sep-2020 22:56:19
         IDC_fb = S12AD.ADDR3 ;
-        FVDC_fb = S12AD.ADDR7 ;
+        //FVDC_fb = S12AD.ADDR7 ;
+        HVDC_fb = S12AD1.ADDR15 ;
         IgR_fb = (S12AD1.ADDR0 - 1996);        //24-Sep-2020 22:38:19
-        IgS_fb = (S12AD1.ADDR1 - 2022);        //24-Sep-2020 22:38:19
-        IgT_fb = (S12AD1.ADDR2 - 2016);       //24-Sep-2020 22:38:19
+        //IgS_fb = (S12AD1.ADDR1 - 2022);        //24-Sep-2020 22:38:19
+        //IgT_fb = (S12AD1.ADDR2 - 2016);       //24-Sep-2020 22:38:19
         tempR_fb = S12AD1.ADDR6 ;       //13-Sep-2021 15:28:19
         tempS_fb = S12AD1.ADDR7 ;       //13-Sep-2021 15:28:19
-        tempT_fb = S12AD1.ADDR8 ;       //13-Sep-2021 15:28:19
+        //tempT_fb = S12AD1.ADDR8 ;       //13-Sep-2021 15:28:19
 
         Preover_detect();     //27-Feb-2020 22:56:19
 
@@ -165,8 +166,8 @@ void S12AD1_Interrupt(void) {        // 20190131 edit
     IR(PERIB, INTB129) = 0;
 
     IiR_fb = (S12AD.ADDR0 - 2027);      //0225edit S12AD first S12AD1 later  //24-Sep-2020 22:56:19 
-    IiS_fb = (S12AD.ADDR1 - 2014);      //bias = 1.6327 V                    //24-Sep-2020 22:56:19
-    IiT_fb = (S12AD.ADDR2 - 2021);      //22-Nov-2019 16:38:19               //24-Sep-2020 22:56:19
+    //IiS_fb = (S12AD.ADDR1 - 2014);      //bias = 1.6327 V                    //24-Sep-2020 22:56:19
+    //IiT_fb = (S12AD.ADDR2 - 2021);      //22-Nov-2019 16:38:19               //24-Sep-2020 22:56:19
 
   /*
      IiR_fb=sine_V_table[GC_counter_Rn] * V2A_ratio *Kload;
@@ -181,17 +182,18 @@ void S12AD1_Interrupt(void) {        // 20190131 edit
 
     IDC_fb = S12AD.ADDR3 ;
     VPR_fb = S12AD.ADDR4 ;
-    VPS_fb = S12AD.ADDR5 ;
-    VPT_fb = S12AD.ADDR6 ;
-    FVDC_fb = S12AD.ADDR7 ;
-  
-  IgR_fb = (S12AD1.ADDR0 - 1996);        //24-Sep-2020 22:38:19
-  IgS_fb = (S12AD1.ADDR1 - 2022);        //24-Sep-2020 22:38:19
-  IgT_fb = (S12AD1.ADDR2 - 2016);       //24-Sep-2020 22:38:19
+    //VPS_fb = S12AD.ADDR5 ;
+    //VPT_fb = S12AD.ADDR6 ;
+   //FVDC_fb = S12AD.ADDR7 ;
+    HVDC_fb = S12AD1.ADDR15 ;
+    
+    IgR_fb = (S12AD1.ADDR0 - 1996);        //24-Sep-2020 22:38:19
+  //IgS_fb = (S12AD1.ADDR1 - 2022);        //24-Sep-2020 22:38:19
+  //IgT_fb = (S12AD1.ADDR2 - 2016);       //24-Sep-2020 22:38:19
 
     tempR_fb = S12AD1.ADDR6 ;       //13-Sep-2021 15:28:19
     tempS_fb = S12AD1.ADDR7 ;       //13-Sep-2021 15:28:19
-    tempT_fb = S12AD1.ADDR8 ;       //13-Sep-2021 15:28:19
+    //tempT_fb = S12AD1.ADDR8 ;       //13-Sep-2021 15:28:19
  /*
     IgR_fb = S12AD1.ADDR0 ;
     IgS_fb = S12AD1.ADDR1 ;
@@ -203,10 +205,10 @@ void S12AD1_Interrupt(void) {        // 20190131 edit
     IgT_fb=-IgR_fb- IgS_fb;
                             */
     VCR_fb = S12AD1.ADDR9 ;
-    VCS_fb = S12AD1.ADDR10 ;
-    VCT_fb = S12AD1.ADDR11 ;
+    //VCS_fb = S12AD1.ADDR10 ;
+    //VCT_fb = S12AD1.ADDR11 ;
 
-    VPS_pro = VCS_fb;
+    VPR_pro = VCR_fb;
     // ILDR_fb = S12AD1.ADDR6 ;
     // ILDS_fb = S12AD1.ADDR7 ;
     // ILDT_fb = S12AD1.ADDR8 ;
@@ -229,11 +231,11 @@ void S12AD1_Interrupt(void) {        // 20190131 edit
                     Grid_counter_range();
                     Iref1_calculation();
                     L_iR_attenu = 1;
-                    L_iS_attenu = 1;
-                    L_iT_attenu = 1;
+                    //L_iS_attenu = 1;
+                    //L_iT_attenu = 1;
                     L_gR_attenu = 1;
-                    L_gS_attenu = 1;
-                    L_gT_attenu = 1;
+                    //L_gS_attenu = 1;
+                    //L_gT_attenu = 1;
                     fisrt_time = 0;
                 }
                 duty_calculation();
@@ -410,12 +412,12 @@ void  dc_vol_detection(void) {
     IEN(PERIB, INTB128) = 1; //enable AD120 interrupt and can renew value of feedback(FVDC_fb, HVDC_fb)
 
     for(counter = 0; counter < 2400000 ; counter++){} //delay for 0.01s
-        while(FVDC_fb < FVDC_Ini ){
+        while(HVDC_fb < HVDC_Ini ){
             hoVDC = 0;
-        }       //759V FVDC_A2D Ratio 4.61877 //01-Nov-2019 22:16:19
+        }       //377V FVDC_A2D Ratio 9.4961 //01-Nov-2019 22:16:19
 
             for(counter = 0; counter < 2400000 ; counter++){} //delay for 0.01s
-                while(FVDC_fb < FVDC_Ini  ){
+                while(HVDC_fb < HVDC_Ini  ){
                     hoVDC = 0;
                 }     //check for two times
                 
@@ -429,33 +431,33 @@ void  dc_vol_detection(void) {
 
 void grid_detection(void) {
     UPS_counter_Rn ++ ;      //0225edit confirm initial value
-    UPS_counter_Sn ++ ;
-    UPS_counter_Tn ++ ;
+    //UPS_counter_Sn ++ ;
+    //UPS_counter_Tn ++ ;
     if ( UPS_counter_Rn >= max_counter ) {
         UPS_counter_Rn = 0 ;
     }
-    if ( UPS_counter_Sn >= max_counter ) {
+    /*if ( UPS_counter_Sn >= max_counter ) {
         UPS_counter_Sn = 0 ;
     }
     if ( UPS_counter_Tn >= max_counter ) {
         UPS_counter_Tn = 0 ;
     }
-
+  */
     if(freq_check == 0) {
 
         Grid_freq_detemination();
     }
 
-    if(freq_check == 1 && Seq_check == 0) {
+    /*if(freq_check == 1 && Seq_check == 0) {
         Grid_Seq_detemination();
-    }
+    }*/
 
-    if(freq_check == 1 && Seq_check == 1) {
+    if(freq_check == 1 ) {
         hoVAC_ok = 1;
         if ( counter_equal == 0 ) {
             UPS_counter_Rn ++ ;
-            UPS_counter_Sn ++ ;
-            UPS_counter_Tn ++ ;
+            //UPS_counter_Sn ++ ;
+           //UPS_counter_Tn ++ ;
         }
 
         if(ZCVCR == 1 && ZVCR_check == 1) {
@@ -468,14 +470,14 @@ void grid_detection(void) {
                 ZVCR_check = 0;
                 ZCVCR_counter = 0;
                 GC_counter_Rn = ini_R_counter ;      //0225edit confirm initial value
-                GC_counter_Sn = ini_S_counter ;      //0225edit confirm GC_counter value
-                GC_counter_Tn = ini_T_counter ;
+                //GC_counter_Sn = ini_S_counter ;      //0225edit confirm GC_counter value
+                //GC_counter_Tn = ini_T_counter ;
 
                 if(counter_equal == 1) {
                     Grid_connected ++ ;
                     UPS_counter_Rn = R_counter1 ;     //0225edit check counter1 value
-                    UPS_counter_Sn = S_counter1 ;
-                    UPS_counter_Tn = T_counter1 ;
+                    //UPS_counter_Sn = S_counter1 ;
+                    //UPS_counter_Tn = T_counter1 ;
                 }
             }
         }
@@ -486,38 +488,41 @@ void grid_detection(void) {
             }
         }
         GC_counter_Rn ++ ;
-        GC_counter_Sn ++ ;
-        GC_counter_Tn ++ ;
+        //GC_counter_Sn ++ ;
+        //GC_counter_Tn ++ ;
 
         if ( GC_counter_Rn >= max_counter ) {
             GC_counter_Rn = 0 ;
         }
-        if ( GC_counter_Sn >= max_counter ) {
+        /*if ( GC_counter_Sn >= max_counter ) {
             GC_counter_Sn = 0 ;
         }
         if ( GC_counter_Tn >= max_counter ) {
             GC_counter_Tn = 0 ;
-        }
+        }*/
 
 
-        if(Grid_connected >= 1) {
-            if(
-                UPS_counter_Rn != GC_counter_Rn ||
-                UPS_counter_Sn != GC_counter_Sn ||
-                UPS_counter_Tn != GC_counter_Tn ) {
+        if(Grid_connected >= 1) 
+            {
+            if(UPS_counter_Rn != GC_counter_Rn )
+                /*(UPS_counter_Rn != GC_counter_Rn 
+           ||UPS_counter_Sn != GC_counter_Sn
+           ||UPS_counter_Tn != GC_counter_Tn)*/
+                {
                 Grid_connected = 0;
                 counter_equal = 0 ;
-            }
-        }
+                }
+             }
 
 
 
-        if (
-            UPS_counter_Rn == GC_counter_Rn &&
-            UPS_counter_Sn == GC_counter_Sn &&
-            UPS_counter_Tn == GC_counter_Tn ) {
+        if (UPS_counter_Rn == GC_counter_Rn ) 
+            /*(UPS_counter_Rn == GC_counter_Rn 
+         &&UPS_counter_Sn == GC_counter_Sn
+         &&UPS_counter_Tn == GC_counter_Tn)*/
+            {
             counter_equal = 1 ;
-        }
+            }
     }
 
     if( Grid_connected >= 5) {
@@ -571,7 +576,7 @@ void Grid_freq_detemination(void) {
         }
     }
 }
-
+/*
 void Grid_Seq_detemination(void) {
 
     if(ZCVCR == 0) {
@@ -642,12 +647,12 @@ void Grid_Seq_detemination(void) {
         }
     }
 }
-
+*/
 void VDC_ready(void) {
-    if(FVDC_fb > FVDC_Ini && FVDC_fb < FVDC_max ) {     //01-Nov-2019 22:16:19
-        FVDC_check_counter ++;
-        if(FVDC_check_counter >=  VDC_for_sure ) {    //01-Nov-2019 22:16:19
-            FVDC_check_counter = 0;
+    if(HVDC_fb > HVDC_Ini && HVDC_fb < HVDC_max ) {     //01-Nov-2019 22:16:19
+        HVDC_check_counter ++;
+        if(HVDC_check_counter >=  VDC_for_sure ) {    //01-Nov-2019 22:16:19
+            HVDC_check_counter = 0;
             VDC_check = 1;
         }
     }
@@ -656,46 +661,46 @@ void VDC_ready(void) {
 void Grid_counter_range(void) {
     //========= GC current counter (n)th state ==============//
     GC_counter_Rn ++ ;
-    GC_counter_Sn ++ ;
-    GC_counter_Tn ++ ;
+    //GC_counter_Sn ++ ;
+   //GC_counter_Tn ++ ;
 
     if ( GC_counter_Rn >= max_counter ) {
         GC_counter_Rn = 0 ;
     }
-    if ( GC_counter_Sn >= max_counter ) {
+    /*if ( GC_counter_Sn >= max_counter ) {
         GC_counter_Sn = 0 ;
     }
     if ( GC_counter_Tn >= max_counter ) {
         GC_counter_Tn = 0 ;
-    }
+    }*/
     //========= GC current counter (n+1)th state ============//
     GC_counter_Rn1 = GC_counter_Rn + 1 ;
-    GC_counter_Sn1 = GC_counter_Sn + 1 ;
-    GC_counter_Tn1 = GC_counter_Tn + 1 ;
+    //GC_counter_Sn1 = GC_counter_Sn + 1 ;
+    //GC_counter_Tn1 = GC_counter_Tn + 1 ;
     if ( GC_counter_Rn1 >= max_counter ) {
         GC_counter_Rn1 = 0 ;
     }
-    if ( GC_counter_Sn1 >= max_counter ) {
+    /*if ( GC_counter_Sn1 >= max_counter ) {
         GC_counter_Sn1 = 0 ;
     }
     if ( GC_counter_Tn1 >= max_counter ) {
         GC_counter_Tn1= 0 ;
-    }
+    }*/
     //========= UPS counter (n)th state ==============//
     UPS_counter_Rn ++ ;
-    UPS_counter_Sn ++ ;
-    UPS_counter_Tn ++ ;
+    //UPS_counter_Sn ++ ;
+    //UPS_counter_Tn ++ ;
     if ( UPS_counter_Rn >= max_counter ) {
         UPS_counter_Rn = 0 ;
     }
-    if ( UPS_counter_Sn >= max_counter ) {
+    /*if ( UPS_counter_Sn >= max_counter ) {
         UPS_counter_Sn = 0 ;
     }
     if ( UPS_counter_Tn >= max_counter ) {
         UPS_counter_Tn = 0 ;
-    }
+    }*/
 
-    VacS_protectionCheck = 1;
+    VacR_protectionCheck = 1;
 }
 
 void variable_L_detect (void) {
@@ -706,7 +711,7 @@ void variable_L_detect (void) {
         IiR_fb_ana = IiR_fb*Ii_D2A;
     }
 
-    if(IiS_fb<0) {
+    /*if(IiS_fb<0) {
         IiS_fb_ana = -IiS_fb*Ii_D2A;
     } else {
         IiS_fb_ana = IiS_fb*Ii_D2A;
@@ -716,7 +721,7 @@ void variable_L_detect (void) {
         IiT_fb_ana = -IiT_fb*Ii_D2A;
     } else {
         IiT_fb_ana = IiT_fb*Ii_D2A;
-    }
+    }*/
     //====== Calculate Ig from digital to analog ======//
     if(IgR_fb<0) {
         IgR_fb_ana = -IgR_fb*Ig_D2A;
@@ -724,7 +729,7 @@ void variable_L_detect (void) {
         IgR_fb_ana = IgR_fb*Ig_D2A;
     }
 
-    if(IgS_fb<0) {
+    /*if(IgS_fb<0) {
         IgS_fb_ana = -IgS_fb*Ig_D2A;
     } else {
         IgS_fb_ana = IgS_fb*Ig_D2A;
@@ -734,35 +739,35 @@ void variable_L_detect (void) {
         IgT_fb_ana = -IgT_fb*Ig_D2A;
     } else {
         IgT_fb_ana = IgT_fb*Ig_D2A;
-    }
+    }*/
 
-    if(IiR_fb_ana>87) {         //01-Nov-2019 22:16:19
-        IiR_fb_ana=87;
+    if(IiR_fb_ana>40) {         //01-Nov-2019 22:16:19
+        IiR_fb_ana=40;
     }
-    if(IiS_fb_ana>87) {
-        IiS_fb_ana=87;
+    /*if(IiS_fb_ana>40) {
+        IiS_fb_ana=40;
     }
-    if(IiT_fb_ana>87) {
-        IiT_fb_ana=87;
+    if(IiT_fb_ana>40) {
+        IiT_fb_ana=40;
+    }*/
+    if(IgR_fb_ana>40) {
+        IgR_fb_ana=40;
     }
-    if(IgR_fb_ana>87) {
-        IgR_fb_ana=87;
+    /*if(IgS_fb_ana>40) {
+        IgS_fb_ana=40;
     }
-    if(IgS_fb_ana>87) {
-        IgS_fb_ana=87;
-    }
-    if(IgT_fb_ana>87) {
-        IgT_fb_ana=87;
-    }
+    if(IgT_fb_ana>40) {
+        IgT_fb_ana=40;
+    }*/
 
     //====== Inductance ============================//
     L_iR_attenu  = L_table_Iin[IiR_fb_ana];
-    L_iS_attenu  = L_table_Iin[IiS_fb_ana];
-    L_iT_attenu  = L_table_Iin[IiT_fb_ana];
+    //L_iS_attenu  = L_table_Iin[IiS_fb_ana];
+    //L_iT_attenu  = L_table_Iin[IiT_fb_ana];
 
     L_gR_attenu  = L_table_Ign[IgR_fb_ana];
-    L_gS_attenu  = L_table_Ign[IgS_fb_ana];
-    L_gT_attenu  = L_table_Ign[IgT_fb_ana];
+    //L_gS_attenu  = L_table_Ign[IgS_fb_ana];
+    //L_gT_attenu  = L_table_Ign[IgT_fb_ana];
 
 
 }
@@ -804,7 +809,7 @@ void voltage_current_reference(void) {
     } else {
         VCR_fb = (VCR_fb-13.5)*0.988634;
     }
-    if(hiZCVCSsaved == 0) {
+    /*if(hiZCVCSsaved == 0) {
         VCS_fb = -VCS_fb*0.996272;
     } else {
         VCS_fb = VCS_fb*0.996272;
@@ -813,13 +818,13 @@ void voltage_current_reference(void) {
         VCT_fb = -VCT_fb*0.9996684;
     } else {
         VCT_fb = VCT_fb*0.9996684;
-    }
+    }*/
     if(hiZCVPRsaved == 0) {
         VPR_fb = -VPR_fb;
     } else {
         VPR_fb = VPR_fb;
     }
-    if(hiZCVPSsaved == 0) {
+    /*if(hiZCVPSsaved == 0) {
         VPS_fb = -VPS_fb;
     } else {
         VPS_fb = VPS_fb;
@@ -828,7 +833,7 @@ void voltage_current_reference(void) {
         VPT_fb = -VPT_fb;
     } else {
         VPT_fb = VPT_fb;
-    }
+    }*/
     if(hiZCIDCsaved == 0) {
         IDC_fb = -IDC_fb;
     } else {
@@ -850,8 +855,8 @@ void Iref1_calculation(void) {
     //======= Current referance(n) =========//
 
     IiR_ref1 =sine_V_table[GC_counter_Rn1] * V2A_ratio *Kload;
-    IiS_ref1 =sine_V_table[GC_counter_Sn1] * V2A_ratio *Kload;
-    IiT_ref1=-IiR_ref1 - IiS_ref1 ;
+    //IiS_ref1 =sine_V_table[GC_counter_Sn1] * V2A_ratio *Kload;
+    //IiT_ref1=-IiR_ref1 - IiS_ref1 ;
 }
 
 void Iref_calculation(void) {
@@ -875,27 +880,27 @@ void Iref_calculation(void) {
 
 void duty_calculation(void) {
     IiR_fbD = IiR_fb;
-    IiS_fbD = IiS_fb;
-    IiT_fbD = IiT_fb;
+    //IiS_fbD = IiS_fb;
+    //IiT_fbD = IiT_fb;
     IgR_fbD = IgR_fb;
-    IgS_fbD = IgS_fb;
-    IgT_fbD = IgT_fb;
+    //IgS_fbD = IgS_fb;
+    //IgT_fbD = IgT_fb;
     IiR_fb_1D = IiR_fb_1;
-    IiS_fb_1D = IiS_fb_1;
-    IiT_fb_1D = IiT_fb_1;
+    //IiS_fb_1D = IiS_fb_1;
+    //IiT_fb_1D = IiT_fb_1;
     IgR_fb_1D = IgR_fb_1;
-    IgS_fb_1D = IgS_fb_1;
-    IgT_fb_1D = IgT_fb_1;
+    //IgS_fb_1D = IgS_fb_1;
+    //IgT_fb_1D = IgT_fb_1;
 
 
     delta_IiR = IiR_ref1 - IiR_fbD;
-    delta_IiS = IiS_ref1 - IiS_fbD;
-    delta_IiT = IiT_ref1 - IiT_fbD;
+    //delta_IiS = IiS_ref1 - IiS_fbD;
+    //delta_IiT = IiT_ref1 - IiT_fbD;
 
     delta_IiR_term = (Li_factor * L_iR_attenu );
-    delta_IiS_term = (Li_factor * L_iS_attenu );
-    delta_IiT_term = (Li_factor * L_iT_attenu );
-
+    //delta_IiS_term = (Li_factor * L_iS_attenu );
+    //delta_IiT_term = (Li_factor * L_iT_attenu );
+/*
     CompGainR_Ii = CompConst_Ii * L_gR_attenu ;
     CompGainS_Ii = CompConst_Ii * L_gS_attenu ;
     CompGainT_Ii = CompConst_Ii * L_gT_attenu ;
@@ -903,11 +908,11 @@ void duty_calculation(void) {
     CompGainR_Ig = CompConst_Ig * L_gR_attenu ;
     CompGainS_Ig = CompConst_Ig * L_gS_attenu ;
     CompGainT_Ig = CompConst_Ig * L_gT_attenu ;
-
+*/
     VAC_R_term = VCR_fb * VAC_Const;
-    VAC_S_term = VCS_fb * VAC_Const;
-    VAC_T_term = VCT_fb * VAC_Const;
-
+    //VAC_S_term = VCS_fb * VAC_Const;
+    //VAC_T_term = VCT_fb * VAC_Const;
+/*
     IiCompR = (delta_IiR - IiR_fbD + IiR_fb_1D)* CompGainR_Ii;
     IiCompS = (delta_IiS - IiS_fbD + IiS_fb_1D)* CompGainS_Ii;
     IiCompT = (delta_IiT - IiT_fbD + IiT_fb_1D)* CompGainT_Ii;
@@ -915,13 +920,13 @@ void duty_calculation(void) {
     IgCompR = (IgR_fbD - IgR_fb_1D)* CompGainR_Ig;
     IgCompS = (IgS_fbD - IgS_fb_1D)* CompGainS_Ig;
     IgCompT = (IgT_fbD - IgT_fb_1D)* CompGainT_Ig;
-
+*/
     swduty_R = 302-(delta_IiR * delta_IiR_term)  - VAC_R_term;
     swduty_S = 302-(delta_IiS * delta_IiS_term)  - VAC_S_term;
     swduty_T = 302-(delta_IiT * delta_IiT_term)  - VAC_T_term;
 
     //600 can be adjusted
-
+/*
     SVPWM_Max = swduty_R;
     SVPWM_Min = swduty_R;
     if(swduty_S>SVPWM_Max) {
@@ -942,7 +947,7 @@ void duty_calculation(void) {
     swduty_R = swduty_R + SVPWM;
     swduty_S = swduty_S + SVPWM;
     swduty_T = swduty_T + SVPWM;
-
+*/
     //----------------------------  duty limitation ------------------------------------//
 
     if(swduty_R > duty_max ) {
@@ -965,15 +970,16 @@ void duty_calculation(void) {
     duty_RL = swduty_R - deadtime;
     duty_SH = swduty_S + deadtime;
     duty_SL = swduty_S - deadtime;
-    duty_TH = swduty_T + deadtime;
-    duty_TL = swduty_T - deadtime;
+    //duty_TH = swduty_T + deadtime;
+    //duty_TL = swduty_T - deadtime;
 
     IiR_fb_1 = IiR_fb;
-    IiS_fb_1 = IiS_fb;
-    IiT_fb_1 = IiT_fb;
+    //IiS_fb_1 = IiS_fb;
+    //IiT_fb_1 = IiT_fb;
     IgR_fb_1 = IgR_fb;
-    IgS_fb_1 = IgS_fb;
-    IgT_fb_1 = IgT_fb;
+    //IgS_fb_1 = IgS_fb;
+    //IgT_fb_1 = IgT_fb;
+    
     //LED2=0;
 
 }
@@ -1225,15 +1231,15 @@ void over_detect(void) {                                 //20190131 edit
         wTempT_error = 0;
     }
 
-    if (VacS_protectionCheck == 1) {
-        if(hiZCVCSsaved == 0) {
-            VPS_pro = -VPS_pro;
+    if (VacR_protectionCheck == 1) {
+        if(hiZCVCRsaved == 0) {
+            VPR_pro = -VPR_pro;
         } else {
-            VPS_pro = VPS_pro;
+            VPR_pro = VPR_pro;
         }
-        VPS_proerror = VPS_pro-sine_V_table[ UPS_counter_Sn];
+        VPR_proerror = VPR_pro-sine_V_table[ UPS_counter_Rn];
 
-        if (VPS_proerror>=800 || VPS_proerror<=-800) {
+        if (VPR_proerror>=800 || VPR_proerror<=-800) {
             LED.FAULT = 18;
             protection();
             return;

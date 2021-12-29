@@ -78,9 +78,9 @@ void IOSetting(void)
 
 	/*set LED I/O direction*/
 	PORT1.PDR.BIT.B4 = 1;  //power_on
-	PORT1.PDR.BIT.B3 = 1;  //
-	PORT1.PDR.BIT.B2 = 1;  //
-	PORTC.PDR.BIT.B6 = 1;  //
+	PORT1.PDR.BIT.B3 = 1;  //hoVDC
+	PORT1.PDR.BIT.B2 = 1;  //hoVAC
+	PORTC.PDR.BIT.B6 = 1;  //problem
 	PORTC.PDR.BIT.B5 = 1;  //Hardware portection
 	PORT8.PDR.BIT.B2 = 1;  //LEDFault1
 	PORT8.PDR.BIT.B1 = 1;  //LEDFault2
@@ -470,12 +470,12 @@ void init_GPT1_three_phase_wave(void){
 	  // 1x: Double buffer operation (GTPDBR <=> GTPBR <=> GTPR)
 
 	/*General PWM Timer Cycle Setting Register (GTPR)*/
-	GPT0.GTPR = 604;   //99.36 kHz
-	GPT0.GTPBR =604; //99.36 kHz
+	GPT0.GTPR = 3030;   //19.8 kHz
+	GPT0.GTPBR =3030; //19.8 kHz
 
 	/*General PWM timer Compare Capture Register m (GTCCRm)*/
-	GPT0.GTCCRA = 300;
-	GPT0.GTCCRB = 270;
+	GPT0.GTCCRA = 1515;
+	GPT0.GTCCRB = 1500;
 
 	/*General PWM Timer Output Negate Cintrol Register(GTONCR)*/
 	// GRIOCnA Pin Negate Control Enable
@@ -585,12 +585,12 @@ void init_GPT1_three_phase_wave(void){
 	  // 1x: Double buffer operation (GTPDBR <=> GTPBR <=> GTPR)
 
 	/*General PWM Timer Cycle Setting Register (GTPR)*/
-	GPT1.GTPR = 604;   //99.36 kHz
-	GPT1.GTPBR = 604; //99.36 kHz
+	GPT1.GTPR = 3030;   //19.8 kHz
+	GPT1.GTPBR = 3030; //19.8 kHz
 
 	/*General PWM timer Compare Capture Register m (GTCCRm)*/
-	GPT1.GTCCRA = 300;
-	GPT1.GTCCRB = 270;
+	GPT1.GTCCRA = 1515;
+	GPT1.GTCCRB = 1500;
 
 	/*General PWM Timer Output Negate Cintrol Register(GTONCR)*/
 	// GRIOCnA Pin Negate Control Enable
@@ -652,12 +652,12 @@ void init_GPT1_three_phase_wave(void){
 	  // 1x: Double buffer operation (GTPDBR <=> GTPBR <=> GTPR)
 
 	/*General PWM Timer Cycle Setting Register (GTPR)*/
-	GPT2.GTPR = 604;   //99.36 kHz
-	GPT2.GTPBR = 604; //99.36 kHz
+	GPT2.GTPR = 3030;   //19.8 kHz
+	GPT2.GTPBR = 3030; //19.8 kHz
 
 	/*General PWM timer Compare Capture Register m (GTCCRm)*/
-	GPT2.GTCCRA = 300;
-	GPT2.GTCCRB = 270;
+	//GPT2.GTCCRA = 1515;
+	//GPT2.GTCCRB = 1500;
 
 	/*General PWM Timer Output Negate Cintrol Register(GTONCR)*/
 	// GRIOCnA Pin Negate Control Enable
@@ -719,8 +719,8 @@ void init_GPT1_three_phase_wave(void){
 	  // 1x: Double buffer operation (GTPDBR <=> GTPBR <=> GTPR)
 
 	/*General PWM Timer Cycle Setting Register (GTPR)*/
-	GPT3.GTPR = 1208;   //49.68 kHz
-	GPT3.GTPBR = 1208; //49.68 kHz
+	GPT3.GTPR = 3030;   //19.8 kHz
+	GPT3.GTPBR = 3030; //19.8 kHz
 
 	/*General PWM timer Compare Capture Register m (GTCCRm)*/
 	//GPT3.GTCCRA = 300;
@@ -764,8 +764,8 @@ void init_GPT1_three_phase_wave(void){
     GPT3.GTINTAD.BIT.ADTRBDEN = 0;
 
     /*Setting A/D Trigger timer*/
-	GPT3.GTADTRA =1076;    // sams as GPT3.GTCCRD (Cycle_sign Interrupt) designed by sampling frequency
-	GPT3.GTADTBRA = 1076;
+	GPT3.GTADTRA =2898;    // sams as GPT3.GTCCRD (Cycle_sign Interrupt) designed by sampling frequency
+	GPT3.GTADTBRA = 2898;
 
 
     GPT3.GTINTAD.BIT.GTINTPR = 0;
@@ -778,7 +778,7 @@ void init_GPT1_three_phase_wave(void){
 	  //   In triangle-wave mode, interrupt requests are enabled at both crests and troughs.
 
     // Cycle_sign Interrupt trigger source 
-    GPT3.GTCCRD =1076;                   
+    GPT3.GTCCRD =2898;                   
     GPT3.GTINTAD.BIT.GTINTD = 1; //enable GTCCRD interrupt (GTCID3)
     
     IEN(PERIA, INTA210) = 0;
@@ -824,7 +824,7 @@ void init_AD12A(void){
 	S12AD1.ADCSR.BIT.TRGE = 1;
 	  // 0: Disables A/D conversion to be started by the synchronous or asynchronous trigger.
 	  // 1: Enables A/D conversion to be started by the synchronous or asynchronous trigger.
-	S12AD1.ADCSR.BIT.ADIE = 1;
+	S12AD1.ADCSR.BIT.ADIE = 1; //after A/D conversion,enter to interrupt
 	  // 0: Disables S12ADI interrupt generation upon scan completion.
 	  // 1: Enables S12ADI interrupt generation upon scan completion.
 	S12AD1.ADCSR.BIT.ADCS = 0;
@@ -843,7 +843,7 @@ void init_AD12A(void){
 
 	/* Set channels */
 	S12AD.ADANSA0.WORD = 0x00FF;   //AN000 to AN007
-	S12AD1.ADANSA0.WORD = 0x0FC7; //AN000 to AN002(igx) add HVDC //01-Nov-2019 22:16:19
+	S12AD1.ADANSA0.WORD = 0x8FC7; //AN000 to AN002(igx) add HVDC //01-Nov-2019 22:16:19
     //If control principle change, the channel might be changed 
      
 	/*Set AD conversion start trigger sources*/

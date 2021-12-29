@@ -118,13 +118,13 @@
 #define over_Iin 290 //Initial 8A Ii_A2D Ratio 36.22 (45.7A Enter hw_detection ) //24-Sep-2020 14:08:19
 #define over_Ign 290 //Initial 8A Ig_A2D Ratio 36.26 (45.7A Enter hw_detection ) //25-Sep-2020 14:08:19
 
-#define over_IDC 613 //Initial 9A IDC_A2D Ratio 61.3 (60.4A Enter hw_detection 3841) //25-Sep-2020 14:08:19
+#define over_IDC 671 //Initial 8A IDC_A2D Ratio 83.87 (45.2A Enter hw_detection 3841) //25-Sep-2020 14:08:19
 
 //when voltage precharge, should set the vaule of current protection 
-#define Preover_Iin 374 //Initial 20A Ii_A2D Ratio 18.7 (85.1A Enter hw_detection 1712) //24-Sep-2020 14:08:19
-#define Preover_Ign 370 //Initial 20A Ig_A2D Ratio 18.5 (85.1A Enter hw_detection 1712) //25-Sep-2020 14:08:19
+#define Preover_Iin 362 //Initial 10A Ii_A2D Ratio 36.22 (45.7A Enter hw_detection 1712) //24-Sep-2020 14:08:19
+#define Preover_Ign 363 //Initial 10A Ig_A2D Ratio 36.26 (45.7A Enter hw_detection 1712) //25-Sep-2020 14:08:19
 
-#define Preover_IDC 797 //Initial 13A IDC_A2D Ratio 61.3 (60.4A Enter hw_detection 3841) //25-Sep-2020 14:08:19
+#define Preover_IDC 839 //Initial 10A IDC_A2D Ratio 83.87 (45.2A Enter hw_detection 3841) //25-Sep-2020 14:08:19
 
 //set the vaule of temperature protection
 #define over_temp 3643//when temp=80c Vin=2.83V 2.83*4095/3.3=3643
@@ -135,17 +135,17 @@
 
 
 //define counter max value 
-#define max_counter 828 
+#define max_counter 330
 
 //define grid_detection
-#define ZVCR_Counter 10
+#define ZVCR_Counter 5
 #define ZVCR_60_min 160//404
-#define ZVCR_60_max 165 //424
+#define ZVCR_60_max 170 //424
 #define Grid_fre_for_sure 35   //35
-#define wait_cycle 250              //be less than (828/2)-(828/6)=278
+#define wait_cycle 110              //be less than (330/2)-(330/6)=110
 #define fre_60Hz 1                     // don't set fre_60Hz = 0
-#define sequence_min 680
-#define sequence_max 700
+#define sequence_min 270
+#define sequence_max 280
 
 //define initial counter 
 #define ini_R_counter  -1 
@@ -165,16 +165,18 @@
 #define Ii_D2A 0.02761  //Initial(1/Ii_A2D) //22-Nov-2019 15:27:19
 //Ig_A2D = 36.26  Initial (100/1000)*(1.21/1)*(499/2000)*(4095/3.3)=37.4624  //25-Sep-2020 15:27:19
 #define Ig_D2A  0.02758 
-#define Li_factor  1.4780         //Initial(1350uH)/380/2*19800/Ii_A2D*3030  //25-Sep-2020 15:27:19
-#define CompConst_Ii 0.3378    //Initial(470uH)/380/2*19800/Ii_A2D*3030 //25-Sep-2020 15:27:19
-#define CompConst_Ig 0.3415    //Initial(470uH)/380/2*19800/Ig_A2D*3030  //25-Sep-2020 15:27:19
+
+#define Li_factor  2.9422        //Initial(1350uH)/380/2*19800/Ii_A2D*3030  //25-Sep-2020 15:27:19
+//#define CompConst_Ii 0.3378    //Initial(470uH)/380/2*19800/Ii_A2D*3030 //25-Sep-2020 15:27:19
+//#define CompConst_Ig 0.3415    //Initial(470uH)/380/2*19800/Ig_A2D*3030  //25-Sep-2020 15:27:19
+
 //Vcn_A2D Ratio 10.69 //24-Sep-2020 15:27:19
-#define  VAC_Const  0.07434      // Initial(1/380)/2*(1/Vcn_A2D)*3030     //24-Sep-2020 15:27:19
+#define  VAC_Const  0.37295      // Initial(1/380)/2*(1/Vcn_A2D)*3030     //24-Sep-2020 15:27:19
 
 // define duty min & max 
-#define duty_max 583		  
-#define duty_min 20
-#define deadtime 15                   // this value should be set by situation
+#define duty_max 2970	  
+#define duty_min 60
+#define deadtime 40                   // this value should be set by situation
 
 
 //define sin_table ratio

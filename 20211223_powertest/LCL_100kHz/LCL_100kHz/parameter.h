@@ -43,12 +43,15 @@ int VCR_fb = 0;
 int VCS_fb = 0;
 int VCT_fb = 0;
 int FVDC_fb = 0 ;
+int HVDC_fb = 0 ;
 int GCVRN_fb = 0 ;
 int GCVSN_fb = 0 ;
 int GCVTN_fb = 0 ;
 int tempR_fb = 0;
 int tempS_fb = 0;
 int tempT_fb = 0;
+
+
 
 
 //===== Current(n-1) feedback ===============================//
@@ -99,8 +102,8 @@ unsigned char wTempT_error = 0;
 
 
 int VacR_protectionCheck = 0;
-double VPS_pro = 0;
-double VPS_proerror = 0;
+double VPR_pro = 0;
+double VPR_proerror = 0;
 
 
 
@@ -153,6 +156,7 @@ unsigned char Grid_connected = 0;         // must set 0
 //===== VDC_ready=============================================
 unsigned char VDC_check = 0;                  // must set 0
 unsigned int FVDC_check_counter = 0;
+unsigned int HVDC_check_counter = 0;
 unsigned int cycle_counter = 0;
 
 //===== variable_L_detect ====================================
