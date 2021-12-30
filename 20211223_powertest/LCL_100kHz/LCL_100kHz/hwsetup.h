@@ -142,7 +142,7 @@
 #define ZVCR_60_min 160//404
 #define ZVCR_60_max 170 //424
 #define Grid_fre_for_sure 35   //35
-#define wait_cycle 110              //be less than (330/2)-(330/6)=110
+#define wait_cycle 105              //be less than (330/2)-(330/6)=110
 #define fre_60Hz 1                     // don't set fre_60Hz = 0
 #define sequence_min 270
 #define sequence_max 280

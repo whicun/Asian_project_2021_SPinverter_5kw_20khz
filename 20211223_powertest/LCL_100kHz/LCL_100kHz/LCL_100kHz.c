@@ -263,20 +263,20 @@ void S12AD1_Interrupt(void) {        // 20190131 edit
 
                     if(fisrt_time == 1) {
                         GC_counter_Rn = ini_R_counter ;
-                        GC_counter_Sn = ini_S_counter ;
-                        GC_counter_Tn = ini_T_counter ;
+                        //GC_counter_Sn = ini_S_counter ;
+                        //GC_counter_Tn = ini_T_counter ;
                         UPS_counter_Rn = ini_R_counter ;
-                        UPS_counter_Sn = ini_S_counter ;
-                        UPS_counter_Tn = ini_T_counter ;
+                        //UPS_counter_Sn = ini_S_counter ;
+                        //UPS_counter_Tn = ini_T_counter ;
 
                     }
                     if(fisrt_time == 0) {
                         GC_counter_Rn = ini_R_counter + 1;
-                        GC_counter_Sn = ini_S_counter + 1;
-                        GC_counter_Tn = ini_T_counter + 1 ;
+                        //GC_counter_Sn = ini_S_counter + 1;
+                        //GC_counter_Tn = ini_T_counter + 1 ;
                         UPS_counter_Rn = ini_R_counter + 1;
-                        UPS_counter_Sn = ini_S_counter + 1 ;
-                        UPS_counter_Tn = ini_T_counter + 1;
+                        //UPS_counter_Sn = ini_S_counter + 1 ;
+                        //UPS_counter_Tn = ini_T_counter + 1;
 
                     }
 
@@ -310,11 +310,11 @@ void Cycle_sign_Interrupt(void) {
   //hostart_up=1;
 
     hiZCVPRsaved = ZCVPR ;
-    hiZCVPSsaved = ZCVPS ;
-    hiZCVPTsaved = ZCVPT ;
+    //hiZCVPSsaved = ZCVPS ;
+    //hiZCVPTsaved = ZCVPT ;
     hiZCVCRsaved = ZCVCR;
-    hiZCVCSsaved = ZCVCS;
-    hiZCVCTsaved = ZCVCT;
+    //hiZCVCSsaved = ZCVCS;
+    //hiZCVCTsaved = ZCVCT;
 
     /* hiZCIiRsaved = ZCIiR;
      hiZCIiSsaved = ZCIiS;
@@ -366,8 +366,8 @@ void phase_shift(void) {
     }
 
     GC_counter_Rn = GC_counter_Rn + PF_phase ;
-    GC_counter_Sn = GC_counter_Sn + PF_phase ;
-    GC_counter_Tn = GC_counter_Tn + PF_phase ;
+    //GC_counter_Sn = GC_counter_Sn + PF_phase ;
+    //GC_counter_Tn = GC_counter_Tn + PF_phase ;
 
     if ( GC_counter_Rn >= max_counter ) {
         GC_counter_Rn = GC_counter_Rn - max_counter ;
@@ -375,7 +375,7 @@ void phase_shift(void) {
         GC_counter_Rn = GC_counter_Rn + max_counter ;
     }
 
-    if ( GC_counter_Sn >= max_counter ) {
+    /*if ( GC_counter_Sn >= max_counter ) {
         GC_counter_Sn = GC_counter_Sn - max_counter ;
     } else if ( GC_counter_Sn < 0 ) {
         GC_counter_Sn = GC_counter_Sn + max_counter ;
@@ -385,7 +385,7 @@ void phase_shift(void) {
         GC_counter_Tn = GC_counter_Tn - max_counter ;
     } else if ( GC_counter_Tn < 0 ) {
         GC_counter_Tn = GC_counter_Tn + max_counter ;
-    }
+    }*/
 
 }
 
@@ -741,8 +741,8 @@ void variable_L_detect (void) {
         IgT_fb_ana = IgT_fb*Ig_D2A;
     }*/
 
-    if(IiR_fb_ana>40) {         //01-Nov-2019 22:16:19
-        IiR_fb_ana=40;
+    if(IiR_fb_ana>46) {         //01-Nov-2019 22:16:19
+        IiR_fb_ana=46;
     }
     /*if(IiS_fb_ana>40) {
         IiS_fb_ana=40;
@@ -750,8 +750,8 @@ void variable_L_detect (void) {
     if(IiT_fb_ana>40) {
         IiT_fb_ana=40;
     }*/
-    if(IgR_fb_ana>40) {
-        IgR_fb_ana=40;
+    if(IgR_fb_ana>46) {
+        IgR_fb_ana=46;
     }
     /*if(IgS_fb_ana>40) {
         IgS_fb_ana=40;
@@ -873,8 +873,8 @@ void Iref_calculation(void) {
     //======= Current referance(n+1) =========//
 
     IiR_ref1 =sine_V_table[GC_counter_Rn1] * V2A_ratio *Kload;
-    IiS_ref1 =sine_V_table[GC_counter_Sn1] * V2A_ratio *Kload;
-    IiT_ref1 =-IiR_ref1 - IiS_ref1 ;
+    //IiS_ref1 =sine_V_table[GC_counter_Sn1] * V2A_ratio *Kload;
+    //IiT_ref1 =-IiR_ref1 - IiS_ref1 ;
 }
 
 
@@ -921,10 +921,9 @@ void duty_calculation(void) {
     IgCompS = (IgS_fbD - IgS_fb_1D)* CompGainS_Ig;
     IgCompT = (IgT_fbD - IgT_fb_1D)* CompGainT_Ig;
 */
-    swduty_R = 302-(delta_IiR * delta_IiR_term)  - VAC_R_term;
-    swduty_S = 302-(delta_IiS * delta_IiS_term)  - VAC_S_term;
-    swduty_T = 302-(delta_IiT * delta_IiT_term)  - VAC_T_term;
-
+    swduty_R = 1515-(delta_IiR * delta_IiR_term)  - VAC_R_term;
+    swduty_S = 1515+(delta_IiR * delta_IiR_term)  + VAC_R_term;
+    
     //600 can be adjusted
 /*
     SVPWM_Max = swduty_R;
@@ -960,11 +959,11 @@ void duty_calculation(void) {
     } else if( swduty_S < duty_min) {
         swduty_S = duty_min ;
     }
-    if(swduty_T > duty_max ) {
+    /*if(swduty_T > duty_max ) {
         swduty_T = duty_max ;
     } else if( swduty_T < duty_min) {
         swduty_T = duty_min ;
-    }
+    }*/
 
     duty_RH = swduty_R + deadtime;
     duty_RL = swduty_R - deadtime;

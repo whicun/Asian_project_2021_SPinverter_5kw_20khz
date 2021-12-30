@@ -847,11 +847,10 @@ void init_AD12A(void){
     //If control principle change, the channel might be changed 
      
 	/*Set AD conversion start trigger sources*/
-	S12AD.ADSTRGR.WORD = 0x1700;  //we choose 49.68KHz(sample frequency)
-	// S12AD compare with GPT0.GTADTRA switching cycle =99.36KHz
-    // S12AD compare with GPT3.GTADTRA switching cycle =49.68KHz
+	S12AD.ADSTRGR.WORD = 0x1700;  //we choose 19.8KHz(sample frequency)
+    // S12AD compare with GPT3.GTADTRA switching cycle =19.8KHz
 
-    S12AD1.ADSTRGR.WORD = 0x1700;  // S12AD1 compare with GPT0.GTADTRA
+    S12AD1.ADSTRGR.WORD = 0x1700;  // S12AD1 compare with GPT3.GTADTRA
 
 	/*Set interrupt and priority level*/
 	//S12AD
