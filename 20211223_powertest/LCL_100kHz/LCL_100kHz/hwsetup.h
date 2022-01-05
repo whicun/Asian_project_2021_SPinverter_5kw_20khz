@@ -180,7 +180,7 @@
 
 
 //define sin_table ratio
-#define V2A_ratio  0.0350022    //current rating 500w 25-Sep-2020 15:27:19
+#define V2A_ratio  0.0700044  //current rating 1000w 25-Sep-2020 15:27:19
 
 //define Grid_mode_power 
 #define start_counter 110 //start feeding power to grid 

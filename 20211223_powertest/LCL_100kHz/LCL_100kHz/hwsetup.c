@@ -805,7 +805,7 @@ void init_AD12A(void){
 	S12AD.ADCSR.BIT.TRGE = 1;
 	  // 0: Disables A/D conversion to be started by the synchronous or asynchronous trigger.
 	  // 1: Enables A/D conversion to be started by the synchronous or asynchronous trigger.
-	S12AD.ADCSR.BIT.ADIE = 1;
+	S12AD.ADCSR.BIT.ADIE = 1; //after A/D conversion,enter to interrupt
 	  // 0: Disables S12ADI interrupt generation upon scan completion.
 	  // 1: Enables S12ADI interrupt generation upon scan completion.
 	S12AD.ADCSR.BIT.ADCS = 0;

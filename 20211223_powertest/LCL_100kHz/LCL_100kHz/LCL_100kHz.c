@@ -1073,28 +1073,28 @@ void over_detect(void) {                                 //20190131 edit
         wIDC_error = 0;
     }
 
-    if(FVDC_fb < FVDC_min ) {
-        wFVDC_error ++;
-        if(wFVDC_error >= 4) {
-            wFVDC_error = 0;
+    if(HVDC_fb < HVDC_min ) {
+        wHVDC_error ++;
+        if(wHVDC_error >= 4) {
+            wHVDC_error = 0;
             LED.FAULT = 1 ;
             protection();
             return;
         }
     } else {
-        wFVDC_error = 0 ;
+        wHVDC_error = 0 ;
     }
 
-    if( FVDC_fb > FVDC_max) {
-        wFVDC1_error ++;
-        if(wFVDC1_error >= 4) {
-            wFVDC1_error = 0;
+    if( HVDC_fb > HVDC_max) {
+        wHVDC1_error ++;
+        if(wHVDC1_error >= 4) {
+            wHVDC1_error = 0;
             LED.FAULT = 2 ;
             protection();
             return;
         }
     } else {
-        wFVDC1_error = 0 ;
+        wHVDC1_error = 0 ;
     }
 
 
