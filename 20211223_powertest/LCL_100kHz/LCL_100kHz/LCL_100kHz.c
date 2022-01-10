@@ -104,6 +104,12 @@ union {
 
 
  void main(void) {
+    
+    for( i=0; i<length; i++ )                      //bulid sine_table
+        {
+        sine_table[i]= sin(i*sine_table_factor);
+        }
+    
     power_on = 1;                                       //show the cpu on and run program
     VDC_inspect = 0;
     dc_vol_detection();                         // detect 370 < VDC < 390 //01-Nov-2019 22:16:19
@@ -354,7 +360,8 @@ void Grid_mode_power(void) {
     }
 }
 
-void phase_shift(void) {
+
+/*void phase_shift(void) {
 
     operating_PF = PF_status ;
     PF_phase = phase_angle ;
@@ -375,7 +382,7 @@ void phase_shift(void) {
         GC_counter_Rn = GC_counter_Rn + max_counter ;
     }
 
-    /*if ( GC_counter_Sn >= max_counter ) {
+    if ( GC_counter_Sn >= max_counter ) {
         GC_counter_Sn = GC_counter_Sn - max_counter ;
     } else if ( GC_counter_Sn < 0 ) {
         GC_counter_Sn = GC_counter_Sn + max_counter ;
@@ -385,9 +392,9 @@ void phase_shift(void) {
         GC_counter_Tn = GC_counter_Tn - max_counter ;
     } else if ( GC_counter_Tn < 0 ) {
         GC_counter_Tn = GC_counter_Tn + max_counter ;
-    }*/
+    }
 
-}
+    }*/ 
 
 void  dc_vol_detection(void) {
     //clear and disable all PWM output
@@ -854,7 +861,7 @@ void Iref1_calculation(void) {
     }
     //======= Current referance(n) =========//
 
-    IiR_ref1 =sine_V_table[GC_counter_Rn1] * V2A_ratio *Kload;
+    IiR_ref1 =sine_V_table[GC_counter_Rn1] * I_table_factor *Kload;
     //IiS_ref1 =sine_V_table[GC_counter_Sn1] * V2A_ratio *Kload;
     //IiT_ref1=-IiR_ref1 - IiS_ref1 ;
 }
@@ -872,7 +879,7 @@ void Iref_calculation(void) {
     }
     //======= Current referance(n+1) =========//
 
-    IiR_ref1 =sine_V_table[GC_counter_Rn1] * V2A_ratio *Kload;
+    IiR_ref1 =sine_V_table[GC_counter_Rn1] * I_table_factor *Kload;
     //IiS_ref1 =sine_V_table[GC_counter_Sn1] * V2A_ratio *Kload;
     //IiT_ref1 =-IiR_ref1 - IiS_ref1 ;
 }
@@ -1236,7 +1243,7 @@ void over_detect(void) {                                 //20190131 edit
         } else {
             VPR_pro = VPR_pro;
         }
-        VPR_proerror = VPR_pro-sine_V_table[ UPS_counter_Rn];
+            VPR_proerror = VPR_pro-sine_table[ UPS_counter_Rn]*V_table_factor;
 
         if (VPR_proerror>=800 || VPR_proerror<=-800) {
             LED.FAULT = 18;

@@ -139,8 +139,8 @@
 
 //define grid_detection
 #define ZVCR_Counter 5
-#define ZVCR_60_min 160//404
-#define ZVCR_60_max 170 //424
+#define ZVCR_60_min 160//61.875hz
+#define ZVCR_60_max 171 //57.895hz
 #define Grid_fre_for_sure 35   //35
 #define wait_cycle 105              //be less than (330/2)-(330/6)=110
 #define fre_60Hz 1                     // don't set fre_60Hz = 0

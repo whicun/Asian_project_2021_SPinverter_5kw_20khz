@@ -229,11 +229,12 @@ int max_kload_period = 1; //if this value set 1, rated power peroid cycle is (n+
 double dif_kload = 0.5;     // chang n load 
 
 //=====PFC ======================================================
+/*
 int operating_PF = 0;
 int PF_status = 0;// PF_normal 0   PF_leading 1   PF_lagging 2
 int PF_phase = 0;
 int phase_angle = 0; // for phase shift (degree / 360) * 330
-
+*/
 //=====Cycle_sign_Interrupt======================================
 short hiZCVPRsaved = 0; // the positive or negative of VPRn 
 short hiZCVPSsaved = 0; // the positive or negative of VPSn
@@ -252,6 +253,26 @@ short hiZCIgSsaved = 0; // the positive or negative of IgS
 short hiZCIgTsaved = 0; // the positive or negative of IgT 
 
 short hiZCIDCsaved = 0; // the positive or negative of IDC 
+
+//====== you-di ===============================================
+short   i=0;
+double length = 1441;
+double sine_table[1441];
+double sine_table_factor = 0.004363323;//2*pi/1440;
+double I_table_factor = 232.8309783;//1kw/220v*sqrt(2)*36.22 (IA2D)
+double V_table_factor = 3325.947456;//220v*sqrt(2)*10.69  (VA2D)
+double omega_t_count = 0;
+double omega_t_peak=0;
+double omega_t_peak_ori=0;
+//=====PFC=====//
+int operating_PF = 0;
+int PF_status = 0;// PF_normal 0   PF_leading 1   PF_lagging 2
+double PF_theta = 0;    // for phase shift (degree)
+//============//
+int omega_t=0;
+int theta =0;
+int angle=0;
+
 
 
 //====== L table ===============================================
